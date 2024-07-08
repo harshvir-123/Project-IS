@@ -1,0 +1,58 @@
+.loader{
+    background-color: #1d2430;
+    height: 100px;
+    width: 200px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+body{
+     background-color: #1d2430;
+    padding: 0;
+    margin: 0;
+}
+
+.tri1,.tri2,.tri3,.tri4,.tri5{
+    height: 0;
+    width: 0;
+    border-bottom: 100px solid #4968fc;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    position: relative;
+    animation:load 0.8s infinite;
+    transform-origin: bottom;
+}
+@keyframes load{
+    50%{
+        transform: scaleY(0);
+    }
+}
+.tri2{
+
+    border-bottom: 100px solid #4581fa;
+    bottom: 100px;
+    left: 40px;
+    animation-delay: 0.1s;
+}
+.tri3{
+    border-bottom: 100px solid #4395f8;
+    bottom: 200px;
+    left: 80px;
+    animation-delay: 0.2s;
+}
+.tri4{
+    border-bottom: 100px solid #3dc2f5;
+    bottom: 300px;
+    left: 120px;
+    animation-delay: 0.3s;
+}
+.tri5{
+    border-bottom: 100px solid #38e2fa;
+    bottom: 400px;
+    left: 160px;
+    animation-delay: 0.4s;
+}

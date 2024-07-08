@@ -1,1 +1,2 @@
-# Project-IS
+# IS-Project
+School Project for Final Semester
