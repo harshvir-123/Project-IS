@@ -109,7 +109,7 @@
                     <a href="#"><i class="fa-solid fa-user-group"></i> Group</a>
                     <a href="#"><i class="fa-solid fa-star"></i></i> Favorites</a>
                     <a href="#"><i class="fa-solid fa-bookmark"></i></i> Saves</a>
-                    <a href="upcoming.html"><i class="fa-solid fa-clock"></i> Events</a>
+                    <a href="Events/upcoming.php"><i class="fa-solid fa-clock"></i> Events</a>
                     <a href="#"><i class="fa-solid fa-flag"></i> Pages</a>
 
                     <div><label class="darkTheme"> <span></span></label> Apply Dark Theme</div>
@@ -188,7 +188,7 @@
 
                     <div class="event-friend">
                         <div class="event">
-                            <h3 class="heading">Upcoming Events <a href="upcoming.html"><span>see all</span></a></h3>
+                            <h3 class="heading">Upcoming Events <a href="Events/upcoming.php"><span>see all</span></a></h3>
                             <img src="images/eve.jpg" alt="event-img">
                             <div class="event-date">
                                 <h3>21 <b>july</b></h3>
