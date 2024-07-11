@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="user">
-                    <img src="assets/imgs/customer01.jpg" alt="">
+                    <img src="imgs/_.jpeg" alt="">
                 </div>
             </div>
 

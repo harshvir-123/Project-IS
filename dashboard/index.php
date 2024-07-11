@@ -44,9 +44,9 @@
                     <i class="uil uil-comments"></i>
                     <span class="link-name">Comment</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="../dashboard/Admin/index.php">
                     <i class="uil uil-share"></i>
-                    <span class="link-name">Share</span>
+                    <span class="link-name">Admin</span>
                 </a></li>
             </ul>
             
