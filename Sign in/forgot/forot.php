@@ -1,263 +1,274 @@
-<?php
+<?php 
 session_start();
 $error = array();
 
-if(!$conn = mysqli_connect("localhost","root","","forgot_pass")){
-    die("connection failed");
-}
+require "mail.php";
 
-$mode = "enter_email";
-if(isset($_GET['mode'])){
-    $mode = $_GET['mode'];
-}
+	if(!$con = mysqli_connect("localhost","root","","forgot_pass")){
 
+		die("could not connect");
+	}
 
-//something is posted
+	$mode = "enter_email";
+	if(isset($_GET['mode'])){
+		$mode = $_GET['mode'];
+	}
 
-if(count($_POST)>0){
+	//something is posted
+	if(count($_POST) > 0){
 
-    switch($mode){
-        case "enter_email":
-            //valid email
-            if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-                $error[] = "Invalid email";
+		switch ($mode) {
+			case 'enter_email':
+				// code...
+              $email = $_POST['email'];
+				//validate email
+				if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+					$error[] = "Please enter a valid email";
+				}elseif(!valid_email($email)){
+					$error[] = "That email was not found";
+				}else{
 
-            }else{
+					$_SESSION['forgot']['email'] = $email;
+					send_email($email);
+					header("Location: forgot.php?mode=enter_code");
+					die;
+				}
+				break;
 
-                $email = $_POST['email'];
-                $_SESSION['email'] = $email;
-                 send_email($email);
-                    header("Location: ../forgot/forot.php?mode=enter_code");
-                    die;
+			case 'enter_code':
+				// code...
+				$code = $_POST['code'];
+				$result = is_code_correct($code);
 
-            }
+				if($result == "the code is correct"){
 
-   
-            
-         
-        break;
+					$_SESSION['forgot']['code'] = $code;
+					header("Location: forot.php?mode=enter_password");
+					die;
+				}else{
+					$error[] = $result;
+				}
+				break;
 
-        case "enter_code":
-            $code = $_POST['code'];
-            $result = is_code_correct($code);
-            if($result == "the code is correct"){
-                header("Location: ../forgot/forot.php?mode=enter_password");
-                die;
+			case 'enter_password':
+				// code...
+				$password = $_POST['password'];
+				$password2 = $_POST['password2'];
 
-            }else{
-                $error[] = $result;
-            }
-      
-            
-         
-        break;
+				if($password !== $password2){
+					$error[] = "Passwords do not match";
+				}elseif(!isset($_SESSION['forgot']['email']) || !isset($_SESSION['forgot']['code'])){
+					header("Location: forot.php");
+					die;
+				}else{
+					
+					save_password($password);
+					if(isset($_SESSION['forgot'])){
+						unset($_SESSION['forgot']);
+					}
 
-        case "enter_password":
-             $password = $_POST['password'];
-             $password2 = $_POST['password2'];
-             if($password!= $password2){
-                 $error[] = "Passwords do not match";
-             }else{
-                 save_password($password);
-            header("Location: ../Sign in/index.html");
-            die;
-            
-             }
-        break;
+					header("Location: ../Sign in/index.html");
+					die;
+				}
+				break;
+			
+			default:
+				// code...
+				break;
+		}
+	}
 
-        default:
+	function send_email($email){
+		
+		global $con;
 
+		$expire = time() + (60 * 1);
+		$code = rand(10000,99999);
+		$email = addslashes($email);
 
-}
-}
+		$query = "insert into codes (email,code,expire) value ('$email','$code','$expire')";
+		mysqli_query($con,$query);
 
+		//send email here
+		//mail($email,'Password reset',"Your code is " . $code);
+	}
+	
+	function save_password($password){
+		
+		global $con;
 
-function save_password($password){
-    
-    $expire = time() + (60* 1);
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $email = addslashes($_SESSION['email']);
-    $conn = mysqli_connect("localhost","root","","forgot_pass");
+		//$password = password_hash($password, PASSWORD_DEFAULT);
+		$email = addslashes($_SESSION['forgot']['email']);
 
+		$query = "update users set password = '$password' where email = '$email' limit 1";
+		mysqli_query($con,$query);
 
-    $query = "update `users` set `password`='$password' where `email`='$email' limit 1";
-      mysqli_query($conn,$query);
+	}
+	
+	function valid_email($email){
+		global $con;
 
-      //sned email here 
-     // mail($email, 'Website: reset password', 'your code is ' . $code);
- 
+		$email = addslashes($email);
 
+		$query = "select * from users where email = '$email' limit 1";		
+		$result = mysqli_query($con,$query);
+		if($result){
+			if(mysqli_num_rows($result) > 0)
+			{
+				return true;
+ 			}
+		}
 
-}
+		return false;
 
+	}
 
+	function is_code_correct($code){
+		global $con;
 
+		$code = addslashes($code);
+		$expire = time();
+		$email = addslashes($_SESSION['forgot']['email']);
 
+		$query = "select * from codes where code = '$code' && email = '$email' order by id desc limit 1";
+		$result = mysqli_query($con,$query);
+		if($result){
+			if(mysqli_num_rows($result) > 0)
+			{
+				$row = mysqli_fetch_assoc($result);
+				if($row['expire'] > $expire){
 
+					return "the code is correct";
+				}else{
+					return "the code is expired";
+				}
+			}else{
+				return "the code is incorrect";
+			}
+		}
 
-function send_email($email){
-    
-    $expire = time() + (60* 1);
-    $code = rand(10000,99999);
-    $email = addslashes($email);
-    $conn = mysqli_connect("localhost","root","","forgot_pass");
+		return "the code is incorrect";
+	}
 
-
-    $query = "INSERT INTO `codes`( `email`, `code`, `expire`) VALUES ('$email','$code','$expire')";
-      mysqli_query($conn,$query);
-
-      //sned email here 
-     // mail($email, 'Website: reset password', 'your code is ' . $code);
- 
-
-
-}
-
-function is_code_correct($code){
-
-    $code = addslashes($code);
-    $expire = time();
-    $email = addslashes($_SESSION['email']);
-    $conn = mysqli_connect("localhost","root","","forgot_pass");
-    $query = "SELECT * FROM `codes` WHERE `code`='$code' AND `email`='$email' AND `expire`>'$expire' order by id declimit 1";
-   $result =  mysqli_query($conn,$query);
-   if($result){
-    if(mysqli_num_rows($result) > 0){
-        $row = mysqli_fetch_assoc($result);
-        if($row['expire'] > time()){
-            return "the code is correct";
-
-        }else{
-            return "the code is expired";
-        }
-        
-    }else{
-        return "the code is incorrect";
-    }
-
-   }
-
-
-    return false;
-
-}
-
+	
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register & Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../login.css">
+	<meta charset="utf-8">
+	<title>Forgot</title>
 </head>
 <body>
+<style type="text/css">
+	
+	*{
+		font-family: tahoma;
+		font-size: 13px;
+	}
+
+	form{
+		width: 100%;
+		max-width: 200px;
+		margin: auto;
+		border: solid thin #ccc;
+		padding: 10px;
+	}
+
+	.textbox{
+		padding: 5px;
+		width: 180px;
+	}
+</style>
+
+		<?php 
+
+			switch ($mode) {
+				case 'enter_email':
+					// code...
+					?>
+						<form method="post" action="forot.php?mode=enter_code"> 
+							<h1>Forgot Password</h1>
+							<h3>Enter your email below</h3>
+							<span style="font-size: 12px;color:red;">
+							<?php 
+								foreach ($error as $err) {
+									// code...
+									echo $err . "<br>";
+								}
+							?>
+							</span>
+							<input class="textbox" type="email" name="email" placeholder="Email"><br>
+							<br style="clear: both;">
+							<input type="submit" value="Next">
+							<br><br>
+							<div><a href="../Sign in/index.html">Login</a></div>
+						</form>
+					<?php				
+					break;
+
+				case 'enter_code':
+					// code...
+					?>
+						<form method="post" action="forot.php?mode=enter_code"> 
+							<h1>Forgot Password</h1>
+							<h3>Enter your the code sent to your email</h3>
+							<span style="font-size: 12px;color:red;">
+							<?php 
+								foreach ($error as $err) {
+									// code...
+									echo $err . "<br>";
+								}
+							?>
+							</span>
+
+							<input class="textbox" type="text" name="code" placeholder="12345"><br>
+							<br style="clear: both;">
+							<input type="submit" value="Next" style="float: right;">
+							<a href="forot.php">
+								<input type="button" value="Start Over">
+							</a>
+							<br><br>
+							<div><a href="../Sign in/index.html">Login</a></div>
+						</form>
+					<?php
+					break;
+
+				case 'enter_password':
+					// code...
+					?>
+						<form method="post" action="forot.php?mode=enter_code"> 
+							<h1>Forgot Password</h1>
+							<h3>Enter your new password</h3>
+							<span style="font-size: 12px;color:red;">
+							<?php 
+								foreach ($error as $err) {
+									// code...
+									echo $err . "<br>";
+								}
+							?>
+							</span>
+
+							<input class="textbox" type="text" name="password" placeholder="Password"><br>
+							<input class="textbox" type="text" name="password2" placeholder="Retype Password"><br>
+							<br style="clear: both;">
+							<input type="submit" value="Next" style="float: right;">
+							<a href="forot.php">
+								<input type="button" value="Start Over">
+							</a>
+							<br><br>
+							<div><a href="../Sign in/index.html">Login</a></div>
+						</form>
+					<?php
+					break;
+				
+				default:
+					// code...
+					break;
+			}
+
+		?>
 
 
-
-    <div class="container" id="signIn">
-        <h1 class="form-title"></h1>
-        <?php
-
-
-
-    switch($mode){
-      
-        case "enter_email":
-            ?>
-                <h1 class="form-title"> enter your email</h1>
-            <form method="post" action="../forgot/forot.php?mode=enter_email">
-            <div class="input-group">
-                <i class="fas fa-envelope"></i>
-                <input type="email" name="email" id="email" placeholder="Email" required>
-                <label for="email">Email</label>
-            </div>
-          
-           <input type="submit" class="btn" value="Reset" name="signIn">
-          </form>
-        
-    
-         <?php
-
-        break;
-
-        case "enter_code":
-            ?>
-                <h1 class="form-title">Enter your code</h1>
-          <form method="post" action="../forgot/forot.php?mode=enter_code">
-            <div class="input-group">
-                <i class="fas fa-envelope"></i>
-                <input type="code" name="code" id="code" placeholder="Enter the code sent to your email" required>
-                <label for="code">Enter the code sendt to your mail</label>
-            </div>
-           <input type="submit" class="btn" value="Reset" name="signIn">
-          </form>
-        
-    
-         <?php
-            
-         
-        break;
-
-        case "enter_password":
-
-            ?>
-                <h1 class="form-title">Enter your new password</h1>
-         <form method="post" action="../forgot/forot.php?mode=enter_password">
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="text" name="password" id="password" placeholder="Password" required>
-                <label for="password">Password</label>
-             
-                <input type="text" name="password2" id="password" placeholder="Retype Password" required>
-                
-                <label for="password2">Retype Password</label>
-            </div>
-           <input type="submit" class="btn" value="Reset" name="signIn">
-          </form>
-        
-    
-         <?php
-            
-         
-        break;
-
-        default:
-
-
-}
-
-
-
-
-?>
-     <!--    <form method="post" action="../register.php">
-          <div class="input-group">
-              <i class="fas fa-envelope"></i>
-              <input type="email" name="email" id="email" placeholder="Email" required>
-              <label for="email">Email</label>
-          </div>
-          <div class="input-group">
-              <i class="fas fa-lock"></i>
-              <input type="password" name="password" id="password" placeholder="Password" required>
-              <label for="password">Password</label>
-          </div>
-         <input type="submit" class="btn" value="Reset" name="signIn">
-        </form>
-        <p class="or">
-          ----------or--------
-        </p>
-        <div class="icons">
-          <i class="fab fa-google"></i>
-          <i class="fab fa-facebook"></i>
-        </div>
-        <div class="links">
-          <p>Don't have account yet?</p>
-          <button id="signUpButton">Sign Up</button>
-        </div>
-      </div>
-      <script src="../login.js"></script>
--->
 </body>
 </html>
