@@ -1,40 +1,24 @@
 <?php
 
+	if(!$con = mysqli_connect("localhost","root","","forgot_db")){
 
+		die("could not connect");
+	}
 
-if(!$conn = mysqli_connect("localhost","root","","forgot_pass")){
-    die("connection failed");
-}
-
-
-/*$password = password_hash('password', PASSWORD_DEFAULT);
-$query = "UPDATE `users` SET `password`='$password' ";
-mysqli_query($conn,$query);
+/*	$password = password_hash('password', PASSWORD_DEFAULT);
+	$query = "update users set password = '$password' ";
+	mysqli_query($con,$query);
 */
 
-
-
-
-
 ?>
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forget and reset page</title>
+	<meta charset="utf-8">
+	<title>Home</title>
 </head>
 <body>
-    <h1>Forget and reset page</h1>
+
+<h1>Home Page</h1>
 </body>
 </html>
