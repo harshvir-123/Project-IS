@@ -61,7 +61,7 @@
                 </li>
 
                 <li>
-                    <a href="settings.php">
+                    <a href="../Admin/php-crud-main/index.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
