@@ -33,3 +33,4 @@ var sliderNav = function(manual){
             sliderNav(i)
         });
     });
+
