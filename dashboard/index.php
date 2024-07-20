@@ -32,22 +32,16 @@
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name">Content</span>
                 </a></li>
-                <li><a href="analytics.html">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name">Analytics</span>
-                </a></li>
-                <li><a href="#">
+                <li><a href="../feedback/feedback.html">
                     <i class="uil uil-thumbs-up"></i>
-                    <span class="link-name">Like</span>
+                    <span class="link-name">Feedback</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="uil uil-comments"></i>
-                    <span class="link-name">Comment</span>
-                </a></li>
+          
                 <li><a href="../dashboard/Admin/index.php">
                     <i class="uil uil-share"></i>
                     <span class="link-name">Admin</span>
                 </a></li>
+               
             </ul>
             
             <ul class="logout-mode">
