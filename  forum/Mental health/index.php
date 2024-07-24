@@ -166,10 +166,79 @@
 
 <h3 class="mini-headign"> Post something to share with others</h3>
 <div class="post-text">
-    <form action="#" method="post">
+    
+    <!--<form action="db.php" method="post">
     <img src="images/user.jpg" alt="user">
-    <input type="text-area" placeholder="What's on your mind, zahidul" name="message">
-    </form>
+    <input type="text-area" placeholder="What's on your mind, zahidul"  name="message">
+ 
+    </form>-->
+
+    <table>
+                        <thead>
+                            <tr>
+                               <td>Posts</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                     <!--------><?php
+                //a php block
+                //echo  "wad";
+                //db connecntiom
+                require_once('db.php');
+                //2. select the query
+                $sql = "SELECT * FROM users";
+                //3.execute the query
+                $result = $conn->query($sql);
+                //4. check if there are any resutls
+                if($result->num_rows > 0):
+                    //4.1 show the data
+                //[
+                // ['id'=>1, 'name'=>'John']
+                 // ['id'=>2, 'name'=>'kohn']
+                  // ['id'=>3, 'name'=>'cohn']
+                  while($row = $result->fetch_assoc()):
+                    //4.2 assign the data to variables
+                    $id = $row['id'];
+                    $message = $row['message'];
+                    
+                    //4.3 create the html
+                    echo "<tr>";
+                    //id
+                    echo "<td>$id</td>";
+                    //photo
+                   
+                    //name
+                    echo "<td>$message</td>";
+                   
+                   
+                    
+                   
+
+
+
+
+
+                  endwhile;
+                
+                
+                //]
+
+
+
+                else:
+
+                echo ' ';
+
+                endif;
+
+                   
+
+
+
+               ?>
+                        </tbody>
+                    </table>
 </div>
 
 

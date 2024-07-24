@@ -12,14 +12,11 @@ if(!$conn){
     die("Connection failed: ". mysqli_connect_error());
 }else{
     
-    $message= $_POST["message"];
-  
-
-
+    $message = $_POST['message'];
     $sql="INSERT INTO `users`( `message`) VALUES ( '$message')";
 
     if(mysqli_query($conn, $sql)){
-        echo ("");
+        echo ('message sent');
       
     }else{
         echo "something went wrong";
@@ -28,5 +25,4 @@ if(!$conn){
 }
 
 ?>
-
 
