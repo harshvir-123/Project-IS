@@ -18,7 +18,7 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-               <img src="assets/_.jpeg" alt="">
+               <img src="./assets/images/_.jpeg" alt="">
             </div>
             <span class="logo_name">Mental health</span>
         </div>
@@ -32,7 +32,7 @@
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name">Content</span>
                 </a></li>
-                <li><a href="../feedback/feedback.html">
+                <li><a href="../Meditation/index.php">
                     <i class="uil uil-thumbs-up"></i>
                     <span class="link-name">Feedback</span>
                 </a></li>
@@ -45,7 +45,7 @@
             </ul>
             
             <ul class="logout-mode">
-                <li><a href="#">
+                <li><a href="../MainPage/index.html">
                     <i class="uil uil-signout"></i>
                     <span class="link-name">Logout</span>
                 </a></li>
@@ -104,89 +104,29 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Users</h2>
-                        <a href="http://localhost/phpmyadmin/index.php?route=/sql&db=admin&table=users&pos=0" class="btn">View All</a>
+                        <a href="" class="btn">View All</a>
                     </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>id</td>
-                                <td>Firstname</td>
-                                <td>Lastname</td>
-                                <td>Email</td>
-                                <td>Status</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                     <!--------><?php
-                //a php block
-                //echo  "wad";
-                //db connecntiom
-                require_once('Admin/config/db.php');
-                //2. select the query
-                $sql = "SELECT * FROM users";
-                //3.execute the query
-                $result = $conn->query($sql);
-                //4. check if there are any resutls
-                if($result->num_rows > 0):
-                    //4.1 show the data
-                //[
-                // ['id'=>1, 'name'=>'John']
-                 // ['id'=>2, 'name'=>'kohn']
-                  // ['id'=>3, 'name'=>'cohn']
-                  while($row = $result->fetch_assoc()):
-                    //4.2 assign the data to variables
-                    $id = $row['id'];
-                    $first_name = $row['first_name'];
-                    $last_name = $row['last_name'];
-                    $phone = $row['phone'];
-                    $email = $row['email'];
-                    $status = $row['status'];
-                    //4.3 create the html
-                    echo "<tr>";
-                    //id
-                    echo "<td>$id</td>";
-                    //photo
-                   
-                    //name
-                    echo "<td>$first_name</td>";
-                    echo "<td>$last_name</td>";
-                    //email
-                    echo "<td>$email</td>";
-                    echo "<td>$status</td>";
-                   
+                    <!--Add something here-->
                     
-                   
+               
 
-
-
-
-
-                  endwhile;
+                  
                 
-                
-                //]
-
-
-
-                else:
-
-                echo ' ';
-
-                endif;
-
-                   
-
-
-
-               ?>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </section>
     <script src="script.js"></script>
+ 
+    <script type="text/javascript">
+
+var darkButton = document.querySelector(".darkTheme");
+
+darkButton.onclick = function(){
+    darkButton.classList.toggle("button-Active");
+    document.body.classList.toggle("dark-color")
+}
+
+    </script>
 </body>
 </html>

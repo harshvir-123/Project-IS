@@ -1,231 +1,121 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
-:root{
- 
-}
-*
-{
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-body{
-  background: linear-gradient(90deg, blue, blue 30%, blue 30%, blue 10%);
-}
-.contactUs{
-  position: relative;
-  width: 100%;
-  padding: 40px 100px;
-}
-.contactUs .title
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
+  background-color: #f4f4f4;
 }
 
-.contactUs .title h2{
+header, main, footer {
+  padding: 20px;
+}
+
+header {
+  background-color: #3498db;
   color: #fff;
-  font-weight: 500;
+  text-align: center;
 }
-.form{
-  grid-area: form;
-}
-.info{
-  grid-area: info;
-}
-.map{
-  grid-area: map;
-}
-.contact{
-  padding: 40px;
-  background: #cc1a1a;
-  box-shadow: 0 5px 35px rgba(0, 0, 0, 0.1)2;
-}
-.box{
-  position: relative;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 5fr 4fr;
-  grid-template-areas: 
-  "form info"
-  "form map";
-  grid-gap: 20px;
-  margin-top: 20px;
-}
-.contact h3{
-  color: gold;
-  font-weight: 500;
-  font-size: 1.4em;
-  margin-bottom: 10px;
-}
-/*form*/
-.formBox{
-  position: relative;
-  width: 100%;
-}
-.formBox .row50{
-  display: flex;
-  gap: 20px;
 
+#feedback-form {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 0 auto;
 }
-.inputBox{
+
+form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
-  width: 50%;
-
-
 }
-.formBox .row100 .inputBox{
-  width: 100%;
 
-}
-.inputBox span{
-  color:  gold;
+label {
   margin-top: 10px;
-  margin-bottom: 5px;
-  font-weight: 500;
 }
-.inputBox input{
-  padding: 10px;
-  font-size: 1.1em;
-  outline: none;
-  border: 1px solid red;
 
+select, textarea {
+  margin-bottom: 15px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
-.inputBox textarea{
-  padding: 10px;
-  font-size: 1.1em;
-  outline: none;
-  border: 1px solid red;
-  resize: none;
-  min-height: 220px;
-  margin-bottom: 10px;
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 }
-.inputBox input[type="submit"]{
-  background:  red;
-  color: #fff;
-  border: none;
-  font-size: 1.1em;
-  max-width: 120px;
-  font-weight: 500;
+
+.rating > input {
+  display: none;
+}
+
+.rating > label {
+  position: relative;
+  width: 1.1em;
+  font-size: 30px;
+  color: #FFD700;
   cursor: pointer;
-  padding: 14px 15px;
 }
-.inputBox ::placeholder{
-  color: #0F919B;
-}
-/*info*/
-.info{
-  background:  red;
 
+.rating > label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0;
 }
-.info h3{
-  color: #fff;
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+  opacity: 1 !important;
 }
-.info .infoBox div{
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+
+.rating > input:checked ~ label:before {
+  opacity: 1;
 }
-.info .infoBox div span{
-  min-width: 40px;
-  height: 40px;
-  color: #fff;
-  background:  #0F919B;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5em;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-.info .infoBox div p{
-  color: #fff;
-  font-size: 1.1em;
-}
-.info .infoBox div a{
-  color: #fff;
-  text-decoration: none;
-}
-.sci{
-  margin-top: 40px;
-  display: flex;
-}
-.sci li{
-  list-style: none;
-  margin-right: 15px;
-}
-.sci li {
-  color: #fff;
-  font-size: 2em;
-}
-.sci li a:hover{
-  color: #fff;
-}
-.map{
-  padding: 0;
-}
-.map iframe{
-  width: 100%;
-  height: 100%;
-}
-/*responisvenss*/
-@media (max-width: 991px){
-  body{
-    background-color:  red;
-  }
-  .contactUs{
-    padding: 20px;
-  }
-  .box{
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
-    "form"
-     "info"
-     "map";
-  }
-  .formBox .row50{
-    display: flex;
-    gap: 0;
-    flex-direction: column;
-  }
-  .inputBox{
-    width: 100%;
-  }
-  .contact{
-    padding: 30px;
-  }
-  .map{
-    min-height: 300px;
-    padding: 0;
-  }
-}
-.row100 .read-more{
-  display: inline-block;
+
+button {
+  background-color: #2ecc71;
+  border: none;
+  color: white;
   padding: 10px 20px;
-  background-color:  gold;
-  color: #fff;
-  font-size: 19px;
+  text-align: center;
   text-decoration: none;
-  border-radius: 25px;
-  margin-top: 15px;
-  transition: 0.3s ease;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+#feedback-confirmation {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
 }
-.row100 .read-more:hover{
-  background-color:  red;
+
+#feedback-confirmation a {
+  color: inherit;
+  text-decoration: none;
 }
-footer{
-  background-color: white;
-  max-width: 30000px;
-  max-height: 30000vh;
+
+footer {
+  background-color: #34495e;
+  color: #fff;
   text-align: center;
-  padding: 50px;
-  
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

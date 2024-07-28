@@ -16,6 +16,7 @@
             <li><a href="#" data-category="meditation">Meditation</a></li>
             <li><a href="#" data-category="breathing">Breathing Exercises</a></li>
             <li><a href="#" data-category="relaxation">Relaxation Techniques</a></li>
+            
         </ul>
     </nav>
     <main>

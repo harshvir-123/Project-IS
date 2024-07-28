@@ -2,116 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Keywords" content="offering scooba life">
-    <meta name="description" content="Enjoy scooba life">
-    <meta name="author" content="Harshvir singh ahuja">
-    <title>Contact us </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    <title>Feedback Module</title>
     <link rel="stylesheet" href="feedback.css">
 </head>
 <body>
-<div class="contactUs">
-<div class="title">
-
-  <h2>Feedback</h2>
-</div>
-<div class="box">
-  <!--Form-->
-<div class="contact form">
-  <h3>Send a Message</h3>
-  <form action="connection.php" method="post">
-    <div class="formBox">
-      <div class="row50">
-        <div class="inputBox">
-          <span>First name</span>
-          <input type="text" placeholder="john" name="firstname" required>
-
-        </div>
-        <div class="inputBox">
-          <span>Last name</span>
-          <input type="text" placeholder="D0e" name="lastname"required>
-
-        </div>
-      </div>
-
-      <div class="row50">
-        <div class="inputBox">
-          <span>Email</span>
-          <input type="text" placeholder="johndoe@gmail.com" name="email" required>
-
-        </div>
-        <div class="inputBox">
-          <span>Mobile</span>
-          <input type="text" placeholder="+254 123 467 890" name="phone"required>
-
-        </div>
-        </div>
-        <div class="row100">
-          <div class="inputBox">
-            <span>Message</span>
-            <textarea placeholder="Write your message here..." name="message" ></textarea>
-  
-          </div>
-      </div>
-      <div class="row100">
-        <div class="inputBox">
-          <span>Message</span>
-         <input type="submit" value="Send">
-         <a href="index.html" class="read-more">Click to go back</a>
-        </div>
-    </div>
-    </div>
-  </form>
-</div>
-
-<!--Info box-->
-<div class="contact info">
-  <h3>Contact info</h3>
-  <div class="infoBox">
-    <div>
-      <span><ion-icon name="location"></ion-icon> </span>
-      <p>MINI MALL, 2ND FLOOR, SUITE 403  <br>
-        P.O. BOX 3516 CODE 40100<br>
-        APINDI STREET<br>
-        KISUMU, KENYA
-        </p>
-    </div>
-    <div>
-      <span><ion-icon name="mail"></ion-icon></span>
-      <a href="mailto:info@starcreditltd.com">info@starcreditltd.com</a>
-    </div>
-    <div>
-      <span><ion-icon name="call"></ion-icon></span>
-      <a href="tel:+254 725018879">+254 725018879</a>
-    </div>
-  </div>
-  <!--Social media-->
-  <ul class="sci">
-
-    <li><a href="#"></a><ion-icon name="logo-instagram"></ion-icon></li>
-    <li><a href="#"></a><ion-icon name="logo-twitter"></ion-icon></li>
-    <li><a href="#"></a><ion-icon name="logo-facebook"></ion-icon></li>
-    <li><a href="#"></a><ion-icon name="logo-linkedin"></ion-icon></li>
-  </ul>
-
-
-</div>
-
-<!-- Map-->
-<div class="contact map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127318.17374118639!2d39.51229833906251!3d-4.2797626000000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1840463f2a0b107d%3A0xafa0063ab0f439ad!2sDiani%20Beach!5e0!3m2!1sen!2ske!4v1716483948937!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-</div>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</div>
-<br><br><br><br><br><br><br><br>
-<!--footer-->
-<footer>
-    &copy; 2021 brighterdays
-</footer>
-
+    <header>
+        <h1>Feedback</h1>
+    </header>
+    <main>
+        <section id="feedback-form">
+            <h2>Submit Your Feedback</h2>
+            <form id="submit-feedback">
+                <label for="feedback-type">Feedback Type:</label>
+                <select id="feedback-type" required>
+                    <option value="">Select a type</option>
+                    <option value="general">General Feedback</option>
+                    <option value="meditation">Meditation Session</option>
+                    <option value="resource">Resource</option>
+                    <option value="bug">Bug Report</option>
+                </select>
+ 
+                <label for="rating">Rating:</label>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" required><label for="star5"></label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
+                </div>
+ 
+                <label for="feedback-text">Your Feedback:</label>
+                <textarea id="feedback-text" rows="5" required></textarea>
+ 
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </section>
+        <section id="feedback-confirmation" style="display: none;">
+            <h2>Thank You!</h2>
+            <p>Your feedback has been submitted successfully.</p>
+            <a href="../MainPage/index.html">Go back</a>
+        </section>
+    </main>
+   <br> <footer>
+        <p>&copy; 2024 Student Well-being App</p>
+    </footer>
+    <script src="feedback.js"></script>
 </body>
 </html>
+ 
