@@ -37,7 +37,7 @@
                     <span class="link-name">Feedback</span>
                 </a></li>
           
-                <li><a href="../dashboard/php admin crud/admin_page.php">
+                <li><a href="../dashboard/Admin/login.php">
                     <i class="uil uil-share"></i>
                     <span class="link-name">Admin</span>
                 </a></li>
